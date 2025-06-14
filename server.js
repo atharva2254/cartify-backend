@@ -5,7 +5,7 @@ const cors = require("cors");
 const { mongoConnect } = require("./models/database");
 const { getdb } = require("./models/database");
 const path = require("path");
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 // app.use(express.urlencoded({ extended: true }));
@@ -58,7 +58,7 @@ class Products {
       });
   }
 }
-app.get("/", (req, res) => res.send("Server is running"));
+app.get("/", (req, res) => res.send("<h1>Server is live</h1>"));
 
 app.post("/submit", upload.single("image"), (req, res) => {
   console.log("Request Received!");
@@ -105,6 +105,6 @@ app.get("/view", (req, res) => {
 
 mongoConnect((client) => {
   app.listen(port, () =>
-    console.log(`Server running on http://localhost:${port}`)
+    console.log(`Server running on ${process.env.PORT || 8080}`)
   );
 });

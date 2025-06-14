@@ -1,8 +1,9 @@
 const mongo = require("mongodb");
-const MongoClient = mongo.MongoClient;
-const mongoUrl =
-  "mongodb+srv://atharva2254:Atharva%40vl004%24@mycluster.fngcxca.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster";
+require("dotenv").config();
 
+const MongoClient = mongo.MongoClient;
+const mongoUrl = process.env.MONGO_URI;
+console.log(mongoUrl);
 let _db;
 
 const mongoConnect = (callback) => {
