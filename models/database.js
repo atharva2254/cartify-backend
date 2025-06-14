@@ -1,20 +1,18 @@
-const mongo = require("mongodb");
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
-const MongoClient = mongo.MongoClient;
 const mongoUrl = process.env.MONGO_URI;
-console.log(mongoUrl);
 let _db;
 
-const mongoConnect = (callback) => {
-  MongoClient.connect(mongoUrl)
-    .then((client) => {
-      callback(client);
-      _db = client.db("Cartify");
-    })
-    .catch((err) => {
-      console.log("Error while connecting: ", err);
-    });
+const mongoConnect = async (callback) => {
+  try {
+    const client = await MongoClient.connect(mongoUrl); // No options needed
+    console.log("✅ MongoDB Connected Successfully");
+    _db = client.db("Cartify");
+    callback(client);
+  } catch (err) {
+    console.error("❌ MongoDB Connection Error: ", err);
+  }
 };
 
 const getdb = () => {
@@ -24,5 +22,4 @@ const getdb = () => {
   return _db;
 };
 
-exports.mongoConnect = mongoConnect;
-exports.getdb = getdb;
+module.exports = { mongoConnect, getdb };
