@@ -10,6 +10,6 @@ app.get("/", (req, res) => {
   res.send("<h1>Server is Live</h1><br><p>Major updates added</p>");
 });
 
-app.use("/api/products", productRoutes);
+app.use("/products", productRoutes);
 
 module.exports = app;
